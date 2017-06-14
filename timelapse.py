@@ -18,8 +18,8 @@ class TimeLapser(PiCamera):
         self.rotation = self.camera_config['rotation']
 
     def lapse(self):
-        self.configure()
         self.start_preview()
+        self.configure()
         sleep(5)
         for i in range(self.count):
             self.capture(os.path.join(self.folder, 'capture_%s.jpg' % i))
