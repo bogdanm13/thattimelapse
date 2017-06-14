@@ -18,8 +18,10 @@ class TimeLapser(object):
 
 def main():
     camera = PiCamera()
+    camera.rotation = 180
     tl = TimeLapser(camera)
-    tl.capture_image('/home/pi/Desktop/capture.jpg')
+    for i in range(10):
+        tl.capture_image('/home/pi/Desktop/capture_%s.jpg' % i)
 
 if __name__ == "__main__":
     sys.exit(main())
