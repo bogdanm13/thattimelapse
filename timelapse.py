@@ -1,27 +1,32 @@
+import os
 import sys
 from time import sleep
 
 from picamera import PiCamera
 
 
-class TimeLapser(object):
+class TimeLapser(PiCamera):
 
-    def __init__(self, camera):
-        self.camera = camera
+    def __init__(self, folder, wait, count=10, rotation=180):
+        self.folder = folder
+        self.wait = wait
+        self.count = count
+        # configure ourselves
+        self.rotation = rotation
 
-    def capture_image(self, path):
-        self.camera.start_preview()
+    def lapse(self):
+        self.start_preview()
         sleep(5)
-        self.camera.capture(path)
-        self.camera.stop_preview()
+        for i in range(self.count):
+            self.capture(os.path.join(self.folder, 'capture_%s.jpg' % i))
+            sleep(self.wait)
+        self.stop_preview()
 
 
 def main():
-    camera = PiCamera()
-    camera.rotation = 180
-    tl = TimeLapser(camera)
-    for i in range(10):
-        tl.capture_image('/home/pi/Desktop/capture_%s.jpg' % i)
+    tl = TimeLapser("/home/pi/Desktop", 5)
+    tl.lapse()
+        
 
 if __name__ == "__main__":
     sys.exit(main())
