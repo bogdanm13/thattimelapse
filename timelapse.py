@@ -4,6 +4,7 @@ from time import sleep
 
 from picamera import PiCamera
 
+WAIT_INIT = 5
 
 class TimeLapser(PiCamera):
 
@@ -12,15 +13,16 @@ class TimeLapser(PiCamera):
         self.wait = wait
         self.count = count
         self.camera_config = config
+        PiCamera.__init__(self)
 
     def configure(self):
         # doing this after init since some of them do not work
         self.rotation = self.camera_config['rotation']
 
     def lapse(self):
-        self.start_preview()
         self.configure()
-        sleep(5)
+        self.start_preview()
+        sleep(WAIT_INIT)
         for i in range(self.count):
             self.capture(os.path.join(self.folder, 'capture_%s.jpg' % i))
             sleep(self.wait)
