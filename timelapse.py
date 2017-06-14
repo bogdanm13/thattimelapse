@@ -7,14 +7,18 @@ from picamera import PiCamera
 
 class TimeLapser(PiCamera):
 
-    def __init__(self, folder, wait, count=10, rotation=180):
+    def __init__(self, folder, wait, count=10, config={}):
         self.folder = folder
         self.wait = wait
         self.count = count
-        # configure ourselves
-        self.rotation = rotation
+        self.camera_config = config
+
+    def configure(self):
+        # doing this after init since some of them do not work
+        self.rotation = self.camera_config['rotation']
 
     def lapse(self):
+        self.configure()
         self.start_preview()
         sleep(5)
         for i in range(self.count):
@@ -24,9 +28,9 @@ class TimeLapser(PiCamera):
 
 
 def main():
-    tl = TimeLapser("/home/pi/Desktop", 5)
+    tl = TimeLapser("/home/pi/Desktop", 5, config={'rotation':180})
     tl.lapse()
-        
+
 
 if __name__ == "__main__":
     sys.exit(main())
