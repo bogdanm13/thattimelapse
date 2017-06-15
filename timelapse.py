@@ -16,6 +16,9 @@ class TimeLapser(PiCamera):
         self.camera_config = config
         PiCamera.__init__(self)
 
+    def prepare(self):
+        os.makedirs(os.path.abspath(self.folder))
+        
     def configure(self):
         # doing this after init since some of them do not work
         self.rotation = self.camera_config['rotation'] or 0
