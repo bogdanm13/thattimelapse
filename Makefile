@@ -1,4 +1,4 @@
-# This is a Makefile
+# This is not a Makefile
 
 timestamp:=$(shell date +%s)
 
