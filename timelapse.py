@@ -8,7 +8,8 @@ WAIT_INIT = 5
 
 class TimeLapser(PiCamera):
 
-    def __init__(self, folder, wait, count=10, config={}):
+    def __init__(self, prefix, folder, wait, count=10, config={}):
+        self.prefix = prefix
         self.folder = folder
         self.wait = wait
         self.count = count
@@ -17,20 +18,20 @@ class TimeLapser(PiCamera):
 
     def configure(self):
         # doing this after init since some of them do not work
-        self.rotation = self.camera_config['rotation']
+        self.rotation = self.camera_config['rotation'] or 0
 
     def lapse(self):
         self.configure()
         self.start_preview()
         sleep(WAIT_INIT)
         for i in range(self.count):
-            self.capture(os.path.join(self.folder, 'capture_%s.jpg' % i))
+            self.capture(os.path.join(self.folder, "{prefix}_{i}.jpg".format(prefix=self.prefix, i=i)))
             sleep(self.wait)
         self.stop_preview()
 
 
 def main():
-    tl = TimeLapser("/home/pi/Desktop", 5, config={'rotation':180})
+    tl = TimeLapser(prefix="timelapse", folder="capture/timelapse", wait=5, config={'rotation': 180})
     tl.lapse()
 
 
