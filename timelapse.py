@@ -42,7 +42,7 @@ def get_args():
                            help="The prefix of the image's name")
     argparser.add_argument('-d', '--destination', default='capture/timelapse',
                            help='The folder where to save the images')
-    argparser.add_argument('-w', '--wait', default=5,
+    argparser.add_argument('-w', '--wait', default=5, type=int,
                            help='The wait time between image captures')
     return argparser.parse_args()
 
