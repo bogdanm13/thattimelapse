@@ -11,7 +11,7 @@ timelapse: save_previous do_timelapse upload
 	echo "Done!"
 
 upload:
-	dropbox_uploader.sh upload $(timelapse_dir) /
+	dropbox_uploader.sh upload $(timelapse_dir) /timelapse-$(timestamp)
 
 save_previous:
 	mv $(timelapse_dir) $(timelapse_dir)-$(timestamp)
