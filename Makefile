@@ -2,6 +2,7 @@
 
 timestamp:=$(shell date +%s)
 timelapse_dir:=capture/timelapse
+dropbox_dir:=/mnt/media/sync/Dropbox/Apps/thattimelapse/timelapse
 
 test_camera:
 	python3 camera.py
@@ -19,4 +20,5 @@ do_timelapse:
 	python3 timelapse.py
 
 generate_video:
-	echo "Pass!"
+	# r - output framerate; 1 image -> 2 seconds = 50 frames
+	ffmpeg -r 2 -i $(dropbox_dir)/timelapse_%01d.jpg -c:v libx264 -vf "fps=25,format=yuv420p" capture/timelapse.mp4
