@@ -42,12 +42,14 @@ def get_args():
                            help="The prefix of the image's name")
     argparser.add_argument('-d', '--destination', default='capture/timelapse',
                            help='The folder where to save the images')
+    argparser.add_argument('-w', '--wait', default=5,
+                           help='The wait time between image captures')
     return argparser.parse_args()
 
 
 def main():
     args = get_args()
-    tl = TimeLapser(prefix=args.prefix, folder=args.destination, wait=5, config={'rotation': 180})
+    tl = TimeLapser(prefix=args.prefix, folder=args.destination, wait=args.wait, config={'rotation': 180})
     tl.lapse()
 
 
