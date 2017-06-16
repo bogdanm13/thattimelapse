@@ -38,11 +38,13 @@ class TimeLapser(PiCamera):
 
 def get_args():
     argparser = argparse.ArgumentParser()
-    argparser.add_argument('-p', '--prefix', default='timelapse',
+    subparsers = argparser.add_subparsers(help="Actions")
+    capture_parser = subparsers.add_parser("capture")
+    capture_parser.add_argument('-p', '--prefix', default='timelapse',
                            help="The prefix of the image's name")
-    argparser.add_argument('-d', '--destination', default='capture/timelapse',
+    capture_parser.add_argument('-d', '--destination', default='capture/timelapse',
                            help='The folder where to save the images')
-    argparser.add_argument('-w', '--wait', default=5, type=float,
+    capture_parser.add_argument('-w', '--wait', default=5, type=float,
                            help='The wait time between image captures')
     return argparser.parse_args()
 
