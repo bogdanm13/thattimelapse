@@ -17,7 +17,7 @@ save_previous:
 	mv $(timelapse_dir) $(timelapse_dir)-$(timestamp)
 
 do_timelapse:
-	python3 timelapse.py --count=100
+	python3 timelapse.py capture --count=100
 
 generate_video:
 	# r - output framerate; 1 image -> 2 seconds = 50 frames
