@@ -7,7 +7,7 @@ dropbox_dir:=/mnt/media/sync/Dropbox/Apps/thattimelapse/timelapse
 test_camera:
 	python3 camera.py
 
-timelapse: save_previous do_timelapse generate_video
+timelapse: save_previous do_timelapse upload
 	echo "Done!"
 
 upload:
@@ -17,7 +17,7 @@ save_previous:
 	mv $(timelapse_dir) $(timelapse_dir)-$(timestamp)
 
 do_timelapse:
-	python3 timelapse.py
+	python3 timelapse.py --count=100
 
 generate_video:
 	# r - output framerate; 1 image -> 2 seconds = 50 frames
