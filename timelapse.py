@@ -1,3 +1,4 @@
+import argparse
 import os
 import sys
 from time import sleep
@@ -5,6 +6,7 @@ from time import sleep
 from picamera import PiCamera
 
 WAIT_INIT = 5
+
 
 class TimeLapser(PiCamera):
 
@@ -34,8 +36,16 @@ class TimeLapser(PiCamera):
         self.stop_preview()
 
 
+def get_args():
+    argparser = argparse.ArgumentParser()
+    argparser.add_argument('-p', '--prefix', default='timelapse',
+                           help="The prefix of the image's name")
+    return argparser.parse_args()
+
+
 def main():
-    tl = TimeLapser(prefix="timelapse", folder="capture/timelapse", wait=5, config={'rotation': 180})
+    args = get_args()
+    tl = TimeLapser(prefix=args.prefix, folder="capture/timelapse", wait=5, config={'rotation': 180})
     tl.lapse()
 
 
