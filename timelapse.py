@@ -41,17 +41,21 @@ def get_args():
     subparsers = argparser.add_subparsers(help="Actions")
     capture_parser = subparsers.add_parser("capture")
     capture_parser.add_argument('-p', '--prefix', default='timelapse',
-                           help="The prefix of the image's name")
+                                help="The prefix of the image's name")
     capture_parser.add_argument('-d', '--destination', default='capture/timelapse',
-                           help='The folder where to save the images')
+                                help='The folder where to save the images')
     capture_parser.add_argument('-w', '--wait', default=5, type=float,
-                           help='The wait time between image captures')
+                                help='The wait time between image captures')
+    capture_parser.add_argument('-c', '--count', default=10, type=int,
+                                help='The number of images to capture')
     return argparser.parse_args()
 
 
 def main():
     args = get_args()
-    tl = TimeLapser(prefix=args.prefix, folder=args.destination, wait=args.wait, config={'rotation': 180})
+    tl = TimeLapser(prefix=args.prefix, folder=args.destination,
+                    wait=args.wait, count=args.count,
+                    config={'rotation': 180})
     tl.lapse()
 
 
