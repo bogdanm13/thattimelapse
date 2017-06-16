@@ -19,7 +19,7 @@ class TimeLapser(PiCamera):
         PiCamera.__init__(self)
 
     def prepare(self):
-        os.makedirs(self.folder)
+        os.makedirs(self.folder, exist_ok=True)
 
     def configure(self):
         # doing this after init since some of them do not work
