@@ -21,4 +21,4 @@ do_timelapse:
 
 generate_video:
 	# r - output framerate; 1 image -> 2 seconds = 50 frames
-	ffmpeg -r 2 -i $(dropbox_dir)/timelapse_%01d.jpg -c:v libx264 -vf "fps=25,format=yuv420p" capture/timelapse.mp4
+	ffmpeg -r 2 -i $(dropbox_dir)/timelapse_%04d.jpg -c:v libx264 -vf "fps=25,format=yuv420p" capture/timelapse.mp4

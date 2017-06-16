@@ -31,7 +31,7 @@ class TimeLapser(PiCamera):
         self.start_preview()
         sleep(WAIT_INIT)
         for i in range(self.count):
-            self.capture(os.path.join(self.folder, "{prefix}_{i}.jpg".format(prefix=self.prefix, i=i)))
+            self.capture(os.path.join(self.folder, "%s_%04d" %(self.prefix, i)))
             sleep(self.wait)
         self.stop_preview()
 
